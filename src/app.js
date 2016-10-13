@@ -1,5 +1,6 @@
 var BugFilter = React.createClass({
     render: function() {
+        console.log("Rendering BugFilter");
         return (
             <div>A way to filter the list of bugs would come here.</div>
         )
@@ -8,6 +9,7 @@ var BugFilter = React.createClass({
 
 var BugRow = React.createClass({
     render: function() {
+        console.log("Rendering BugRow", this.props.bug);
         return (
             <tr>
                 <td>{this.props.bug.id}</td>
@@ -22,6 +24,7 @@ var BugRow = React.createClass({
 
 var BugTable = React.createClass({
     render: function() {
+        console.log("Rendering bug table, num items:", this.props.bugs.length);
         var bugRows = this.props.bugs.map(function(bug) {
             return <BugRow key={bug.id} bug={bug} />
         });
@@ -46,6 +49,7 @@ var BugTable = React.createClass({
 
 var BugAdd = React.createClass({
     render: function() {
+        console.log("Rendering BugAdd");
         return (
             <div>A form to add a new bug would come here.</div>
         )
@@ -62,16 +66,34 @@ var BugList = React.createClass({
         return {bugs: bugData}
     },
     render: function() {
+        console.log("Rendering bug list, num items:", this.state.bugs.length);
         return (
             <div>
                 <h1>Bug Tracker</h1>
                 <BugFilter />
                 <hr />
                 <BugTable bugs={this.state.bugs} />
+                <button onClick={this.testNewBug}>Add Bug</button>
                 <hr />
                 <BugAdd />
             </div>
         )
+    },
+
+    testNewBug: function() {
+        var nextId = this.state.bugs.length + 1;
+        this.addBug({
+            id: nextId, priority: 'P2', status:'New', owner:'Haru', title:'Warning on console'
+        })
+    },
+
+    addBug: function(bug) {
+        console.log("Adding bug:", bug);
+        var bugsModified = this.state.bugs.slice();
+        bugsModified.push(bug);
+        this.setState({
+            bugs: bugsModified
+        });
     }
 });
 
