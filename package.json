@@ -1,0 +1,14 @@
+{
+  "name": "hashnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webapp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@haruelrovix",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
