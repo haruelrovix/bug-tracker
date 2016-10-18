@@ -77,14 +77,9 @@ var BugAdd = React.createClass({
     }
 });
 
-var bugData = [
-    { id:1, priority:'P1', status:'Open', owner:'Havit', title:'App crashes on open' },
-    { id:2, priority:'P2', status:'New', owner:'Rovik', title:'Misaligned border on panel' }
-];
-
 var BugList = React.createClass({
     getInitialState: function() {
-        return {bugs: bugData}
+        return {bugs: []}
     },
     render: function() {
         console.log("Rendering bug list, num items:", this.state.bugs.length);
@@ -100,8 +95,16 @@ var BugList = React.createClass({
         )
     },
 
+    componentDidMount: function() {
+        $.ajax('/api/bugs').done(function(data) {
+            this.setState({bugs: data});
+        }.bind(this));
+        // In production, we'd also handle errors.
+    },
+
     addBug: function(bug) {
         console.log("Adding bug:", bug);
+        // We're advised not to modify the state, it's immutable. So, make a copy.
         var bugsModified = this.state.bugs.slice();
         bug.id = this.state.bugs.length + 1;
         bugsModified.push(bug);
