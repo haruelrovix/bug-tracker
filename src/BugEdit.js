@@ -17,7 +17,7 @@ var BugEdit = React.createClass({
                     </select>
                     <br />
                     Status:
-                    <select name="priority" value={this.state.status} onChange={this.onChangeStatus}>
+                    <select value={this.state.status} onChange={this.onChangeStatus}>
                         <option>New</option>
                         <option>Open</option>
                         <option>Fixed</option>
@@ -26,7 +26,7 @@ var BugEdit = React.createClass({
                     <br />
                     Owner: <input type="text" value={this.state.owner} onChange={this.onChangeOwner} />
                     <br />
-                    Title: <input type="text" value={this.state.title} onChange={this.onChangeTitle}/>
+                    Title: <input type="text" value={this.state.title} onChange={this.onChangeTitle} />
                     <br />
                     <button type="submit">Submit</button>
                 </form>
@@ -35,7 +35,10 @@ var BugEdit = React.createClass({
     },
 
     getInitialState: function() {
-        return {};
+        return {
+            owner: '',
+            title: ''
+        };
     },
 
     componentDidMount: function() {
