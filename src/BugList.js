@@ -46,16 +46,21 @@ var BugTable = React.createClass({
 });
 
 var BugList = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+
     getInitialState: function() {
         return {bugs: []}
     },
+
     render: function() {
         console.log("Rendering bug list, num items:", this.state.bugs.length);
         return (
             <div>
                 <h1>Bug Tracker</h1>
                 <BugFilter 
-                    submitHandler={this.loadData} 
+                    submitHandler={this.changeFilter} 
                     initFilter={this.props.location.query} />
                 <hr />
                 <BugTable bugs={this.state.bugs} />
@@ -74,6 +79,13 @@ var BugList = React.createClass({
             this.setState({bugs: data});
         }.bind(this));
         // In production, we'd also handle errors.
+    },
+
+    changeFilter: function(newFilter) {
+        this.context.router.push({
+            search: '?' + $.param(newFilter)
+        });
+        this.loadData(newFilter);
     },
 
     addBug: function(bug) {
