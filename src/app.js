@@ -6,6 +6,7 @@ var Redirect = require('react-router').Redirect;
 var hashHistory = require('react-router').hashHistory;
 
 var BugList = require('./BugList');
+var BugEdit = require('./BugEdit');
 
 var NoMatch = React.createClass({
     render: function() {
@@ -18,6 +19,7 @@ var NoMatch = React.createClass({
 ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/bugs" component={BugList} />
+        <Route path="/bugs/:id" component={BugEdit} />
         <Redirect from="/" to="/bugs" />
         <Route path="*" component={NoMatch} />
     </Router>,
